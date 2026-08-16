@@ -1,0 +1,43 @@
+[server]
+fileWatcherType = "watchdog"
+
+[runner]
+fastReruns = false
+
+[browser]
+gatherUsageStats = false
+
+[theme]
+base = "dark"
+primaryColor = "#3DDC97"
+backgroundColor = "#0B1220"
+secondaryBackgroundColor = "#151D2E"
+textColor = "#E8EEF7"
+linkColor = "#7DD3FC"
+borderColor = "#2A3550"
+codeBackgroundColor = "#151D2E"
+codeTextColor = "#CBD5E1"
+showWidgetBorder = true
+showSidebarBorder = true
+baseRadius = "10px"
+buttonRadius = "10px"
+font = "'IBM Plex Sans':https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&display=swap"
+headingFont = "'IBM Plex Sans':https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@600;700&display=swap"
+codeFont = "'IBM Plex Mono':https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&display=swap"
+baseFontSize = 15
+greenColor = "#3DDC97"
+redColor = "#FF6B7A"
+yellowColor = "#F5C14A"
+orangeColor = "#FB923C"
+blueColor = "#7DD3FC"
+violetColor = "#A78BFA"
+grayColor = "#94A3B8"
+dataframeBorderColor = "#2A3550"
+dataframeHeaderBackgroundColor = "#151D2E"
+
+[theme.sidebar]
+backgroundColor = "#0B1220"
+secondaryBackgroundColor = "#151D2E"
+textColor = "#E8EEF7"
+borderColor = "#2A3550"
+primaryColor = "#3DDC97"

@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Option Buying Desk — handbook</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #0b1220;
+      --card: #151d2e;
+      --ink: #10192b;
+      --line: #2a3550;
+      --text: #e8eef7;
+      --muted: #94a3b8;
+      --green: #3ddc97;
+      --red: #ff6b7a;
+      --gold: #f5c14a;
+      --blue: #7dd3fc;
+      --violet: #c4b5fd;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: "IBM Plex Sans", system-ui, sans-serif;
+      background:
+        radial-gradient(1100px 480px at 8% -12%, rgba(61,220,151,0.14), transparent 50%),
+        radial-gradient(800px 380px at 100% 0%, rgba(245,193,74,0.09), transparent 46%),
+        var(--bg);
+      color: var(--text);
+      line-height: 1.58;
+    }
+    a { color: var(--blue); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    .wrap { max-width: 1100px; margin: 0 auto; padding: 2rem 1.35rem 4.5rem; }
+    .hero {
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      padding: 2.1rem 2rem 1.7rem;
+      background: linear-gradient(135deg, #12203a 0%, #0e2a28 52%, #151d2e 100%);
+      margin-bottom: 1.25rem;
+    }
+    .kicker {
+      color: var(--green);
+      letter-spacing: 0.16em;
+      font-size: 0.74rem;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+    h1 { margin: 0.4rem 0 0.45rem; font-size: 2.25rem; letter-spacing: -0.03em; }
+    .lede { color: #c9d4e4; font-size: 1.08rem; max-width: 48rem; margin: 0; }
+    .meta { display: flex; flex-wrap: wrap; gap: 0.45rem; margin-top: 1.15rem; }
+    .chip {
+      border-radius: 999px;
+      padding: 0.22rem 0.72rem;
+      font-size: 0.78rem;
+      font-weight: 600;
+      border: 1px solid var(--line);
+      background: #1c2740;
+    }
+    .chip.g { color: var(--green); border-color: rgba(61,220,151,0.35); background: rgba(61,220,151,0.12); }
+    .chip.y { color: var(--gold); border-color: rgba(245,193,74,0.35); background: rgba(245,193,74,0.12); }
+    .chip.r { color: var(--red); border-color: rgba(255,107,122,0.35); background: rgba(255,107,122,0.12); }
+    .chip.b { color: var(--blue); border-color: rgba(125,211,252,0.35); background: rgba(125,211,252,0.12); }
+    nav.toc {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0.55rem;
+      margin: 0 0 1.45rem;
+    }
+    nav.toc a {
+      display: block;
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 0.7rem 0.8rem;
+      color: var(--text);
+      text-decoration: none;
+    }
+    nav.toc a:hover { border-color: var(--green); text-decoration: none; }
+    nav.toc span {
+      display: block;
+      color: var(--green);
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+    }
+    nav.toc strong { display: block; margin-top: 0.18rem; font-size: 0.9rem; }
+    section {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 1.3rem 1.4rem 1.4rem;
+      margin-bottom: 0.95rem;
+    }
+    h2 { margin: 0 0 0.65rem; font-size: 1.28rem; }
+    h3 { margin: 1.05rem 0 0.4rem; font-size: 1.02rem; color: #d7e0ee; }
+    p, li { color: #d3dce8; }
+    ul { margin: 0.35rem 0 0.2rem 1.15rem; padding: 0; }
+    .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; }
+    .grid3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.7rem; }
+    .grid4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.65rem; }
+    .card {
+      background: var(--ink);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 0.85rem 0.95rem;
+    }
+    .card h3 { margin: 0 0 0.35rem; }
+    .card p { margin: 0; }
+    .card.in { border-color: rgba(61,220,151,0.32); }
+    .card.out { border-color: rgba(255,107,122,0.32); }
+    .flow {
+      display: flex; flex-wrap: wrap; align-items: center; gap: 0.4rem;
+      margin: 0.55rem 0 0.15rem;
+    }
+    .step {
+      background: var(--ink);
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 0.42rem 0.68rem;
+      font-size: 0.84rem;
+      font-weight: 600;
+    }
+    .arrow { color: var(--gold); font-weight: 700; }
+    table { width: 100%; border-collapse: collapse; font-size: 0.92rem; }
+    th, td { text-align: left; padding: 0.48rem 0.5rem; border-bottom: 1px solid var(--line); vertical-align: top; }
+    th { color: var(--muted); font-size: 0.72rem; letter-spacing: 0.07em; text-transform: uppercase; }
+    .callout {
+      border-radius: 12px;
+      padding: 0.8rem 1rem;
+      margin: 0.75rem 0 0;
+      border: 1px solid rgba(245,193,74,0.35);
+      background: rgba(245,193,74,0.08);
+      color: #efe6c8;
+    }
+    .callout.warn { border-color: rgba(255,107,122,0.35); background: rgba(255,107,122,0.08); color: #f6d5d8; }
+    .callout.ok { border-color: rgba(61,220,151,0.35); background: rgba(61,220,151,0.08); color: #c8f5e2; }
+    .elig { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.55rem; }
+    .pill { border-radius: 12px; padding: 0.75rem 0.8rem; border: 1px solid var(--line); font-size: 0.9rem; }
+    .pill b { display: block; margin-bottom: 0.25rem; font-size: 0.95rem; }
+    .pill.ready { background: rgba(61,220,151,0.12); border-color: rgba(61,220,151,0.35); }
+    .pill.spread { background: rgba(245,193,74,0.12); border-color: rgba(245,193,74,0.35); }
+    .pill.watch { background: rgba(125,211,252,0.12); border-color: rgba(125,211,252,0.35); }
+    .pill.skip { background: rgba(255,107,122,0.12); border-color: rgba(255,107,122,0.35); }
+    .formula {
+      background: #0b1220;
+      border: 1px dashed var(--line);
+      border-radius: 10px;
+      padding: 0.75rem 0.9rem;
+      font-family: "IBM Plex Mono", ui-monospace, monospace;
+      font-size: 0.84rem;
+      color: #d7e0ee;
+    }
+    .quote {
+      margin: 0.7rem 0 0;
+      padding: 0.85rem 1rem;
+      border-left: 3px solid var(--green);
+      background: rgba(61,220,151,0.07);
+      border-radius: 0 12px 12px 0;
+      color: #d8f8ea;
+      font-size: 1.05rem;
+    }
+    .num {
+      display: inline-flex;
+      width: 1.45rem; height: 1.45rem;
+      align-items: center; justify-content: center;
+      border-radius: 999px;
+      background: rgba(61,220,151,0.16);
+      color: var(--green);
+      font-size: 0.75rem;
+      font-weight: 700;
+      margin-right: 0.35rem;
+    }
+    footer { color: var(--muted); font-size: 0.85rem; text-align: center; margin-top: 1.3rem; }
+    @media (max-width: 880px) {
+      nav.toc, .grid2, .grid3, .grid4, .elig { grid-template-columns: 1fr 1fr; }
+      h1 { font-size: 1.75rem; }
+    }
+    @media (max-width: 560px) {
+      nav.toc, .grid2, .grid3, .grid4, .elig { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header class="hero">
+      <div class="kicker">NSE F&amp;O · stocks only · last close</div>
+      <h1>Option Buying Desk</h1>
+      <p class="lede">
+        A personal research board for <b>buying</b> stock calls and puts after the session.
+        It tells you which names, which side, which contract, and a buy / sell / stop plan —
+        from <b>last close</b>, not live ticks.
+      </p>
+      <div class="meta">
+        <span class="chip g">Research only</span>
+        <span class="chip y">Not live quotes</span>
+        <span class="chip b">Long CE / PE only</span>
+        <span class="chip r">Not investment advice</span>
+        <span class="chip">Handbook · 16 Aug 2026</span>
+      </div>
+    </header>
+
+    <nav class="toc">
+      <a href="#what"><span>01</span><strong>What it is</strong></a>
+      <a href="#idea"><span>02</span><strong>The core idea</strong></a>
+      <a href="#use"><span>03</span><strong>How you use it</strong></a>
+      <a href="#close"><span>04</span><strong>Last close</strong></a>
+      <a href="#who"><span>05</span><strong>Who can appear</strong></a>
+      <a href="#gates"><span>06</span><strong>Selection gates</strong></a>
+      <a href="#side"><span>07</span><strong>CALL or PUT</strong></a>
+      <a href="#strike"><span>08</span><strong>Strike &amp; cover</strong></a>
+      <a href="#rank"><span>09</span><strong>High &amp; Top 5</strong></a>
+      <a href="#strict"><span>10</span><strong>Strict desk</strong></a>
+      <a href="#plan"><span>11</span><strong>Buy · sell · stop</strong></a>
+      <a href="#screen"><span>12</span><strong>The screen</strong></a>
+      <a href="#back"><span>13</span><strong>Backtest</strong></a>
+      <a href="#words"><span>14</span><strong>Word list</strong></a>
+      <a href="#traps"><span>15</span><strong>Easy traps</strong></a>
+    </nav>
+
+    <section id="what">
+      <h2>What this application is</h2>
+      <p>After the cash and F&amp;O session ends, the desk answers four questions.</p>
+      <div class="grid4">
+        <div class="card"><h3>1 · Stock</h3><p>A short <b>High-priority</b> list, plus a <b>Top 5</b> to compare first.</p></div>
+        <div class="card"><h3>2 · Side</h3><p><b>BUY CALL</b> or <b>BUY PUT</b> — you pay premium; you do not write options.</p></div>
+        <div class="card"><h3>3 · Contract</h3><p>Expiry, ATM / slight ITM / slight OTM, last-close premium, <b>lot size</b>.</p></div>
+        <div class="card"><h3>4 · Plan</h3><p>Research marks: Buy · Sell · Stop, margin %, reward-to-risk.</p></div>
+      </div>
+      <div class="grid2" style="margin-top:0.8rem">
+        <div class="card in">
+          <h3>In scope</h3>
+          <p>Indian <b>stock</b> F&amp;O · long calls and puts · last-close scoring · High board · a simple management plan.</p>
+        </div>
+        <div class="card out">
+          <h3>Not in scope</h3>
+          <p>Live ticks · auto orders · writing options · index option ideas · a promise that High names will win.</p>
+        </div>
+      </div>
+      <div class="callout warn">
+        A High-priority name can still lose the <b>entire premium</b>. This is a research board, not a broker and not advice.
+        You place the trade yourself at the <b>next open</b>, at the <b>live</b> price of the <b>printed strike and expiry</b>.
+      </div>
+    </section>
+
+    <section id="idea">
+      <h2>The one idea the desk is built on</h2>
+      <p>Option buyers pay premium and fight time. A name is only interesting when three things line up.</p>
+      <div class="grid3">
+        <div class="card"><h3>Large-enough move</h3><p>The stock can travel farther than the option needs to break even.</p></div>
+        <div class="card"><h3>Affordable premium</h3><p>Implied volatility is not already “maxed out” for that move.</p></div>
+        <div class="card"><h3>Usable contract</h3><p>Enough activity near the money — not a cheap lottery ticket.</p></div>
+      </div>
+      <p class="quote">Liquid contract + affordable premium + a reason for a fast, large-enough move.</p>
+    </section>
+
+    <section id="use">
+      <h2>How you use it</h2>
+      <p>An evening / pre-open ritual — not a day-trading terminal.</p>
+      <div class="flow">
+        <span class="step">Open the desk</span><span class="arrow">→</span>
+        <span class="step">Fast scan on / off</span><span class="arrow">→</span>
+        <span class="step">Refresh scan</span><span class="arrow">→</span>
+        <span class="step">Read the tape</span><span class="arrow">→</span>
+        <span class="step">Compare Top 5</span><span class="arrow">→</span>
+        <span class="step">Strict desk hint</span><span class="arrow">→</span>
+        <span class="step">Open one name</span>
+      </div>
+      <div class="grid2" style="margin-top:0.85rem">
+        <div class="card">
+          <h3>Sidebar</h3>
+          <p><b>Fast scan on</b> — about 20 liquid large names (everyday use).<br />
+          <b>Fast scan off</b> — full F&amp;O stock list; still only High ideas are shown.<br />
+          <b>Replay past sessions</b> — did last-close picks work recently?</p>
+        </div>
+        <div class="card">
+          <h3>How to take the idea</h3>
+          <p>Buy <b>that strike and expiry</b> at the next session’s live price.
+          Do not hunt a new ATM at 9:15 unless you mean to change the trade.</p>
+        </div>
+      </div>
+      <div class="callout ok">The full scanner of every name is hidden on purpose. Medium and Low ideas never appear on the board.</div>
+    </section>
+
+    <section id="close">
+      <h2>What “last close” means</h2>
+      <table>
+        <thead><tr><th>You see</th><th>It is</th></tr></thead>
+        <tbody>
+          <tr><td>Spot / last close</td><td>The stock’s last official close</td></tr>
+          <tr><td>Option premium</td><td>Last-close premium of that contract (the number that should match last LTP)</td></tr>
+          <tr><td>As-of date</td><td>The F&amp;O session the <b>whole board</b> is using — same day in every column</td></tr>
+          <tr><td>Weekend / holiday</td><td>Rolls back to the previous weekday session</td></tr>
+          <tr><td>Bid–ask</td><td><b>Not</b> on the board after the close — check the spread on your broker at the open</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="who">
+      <h2>Who can appear</h2>
+      <p><b>Stocks only.</b> Index names are not treated as stock option ideas. Being on the F&amp;O list is not the same as being liquid <i>today</i>.</p>
+      <h3>Everyday fast list</h3>
+      <p style="margin:0;color:#c5d0e0;font-size:0.95rem">
+        Reliance · TCS · Infosys · HDFC Bank · ICICI Bank · SBI · Bharti Airtel · ITC · L&amp;T · Axis Bank ·
+        Kotak Bank · Bajaj Finance · Maruti · Sun Pharma · Titan · Asian Paints · Wipro · HCL Tech · NTPC · Power Grid
+      </p>
+      <p style="margin-top:0.7rem">Turn Fast scan off to score the full F&amp;O stock universe. Thin names fail liquidity and never become High buys.</p>
+    </section>
+
+    <section id="gates">
+      <h2>How a name is judged</h2>
+      <p>Hard gates first, then direction, then a contract, then a priority rank.</p>
+      <div class="elig">
+        <div class="pill skip"><b>Skip</b>Hard fail. Do not buy. Ban, stale data, thin options, corp action, or lottery-only strike.</div>
+        <div class="pill spread"><b>Spread only</b>Direction ok, premium rich or event too close. Prefer a debit spread, not naked long.</div>
+        <div class="pill watch"><b>Watch</b>Liquidity ok, but move or setup is incomplete. Hidden from the High board.</div>
+        <div class="pill ready"><b>Ready to buy</b>Liquidity, move-vs-premium, and setup pass. The only state meant for a naked CE/PE.</div>
+      </div>
+
+      <h3>Skip — do not buy</h3>
+      <table>
+        <thead><tr><th>Gate</th><th>Plain meaning</th></tr></thead>
+        <tbody>
+          <tr><td>Missing / stale prices</td><td>Stock or option close is not usable</td></tr>
+          <tr><td>F&amp;O ban</td><td>Name is on the ban list — no new F&amp;O</td></tr>
+          <tr><td>Div / split / bonus ≤ 5 days</td><td>Corporate-action window</td></tr>
+          <tr><td>Thin options</td><td>Near-the-money volume or OI too low (about <b>500</b> volume and <b>2,000</b> OI in the ATM window)</td></tr>
+          <tr><td>Premium too large</td><td>Cost per lot above the <b>₹15,000</b> research budget</td></tr>
+          <tr><td>Lottery-only</td><td>Only a far-OTM ticket would fit — the desk wants ATM ± one strike</td></tr>
+        </tbody>
+      </table>
+
+      <h3>Spread only — do not buy naked</h3>
+      <ul>
+        <li>Options look <b>rich vs recent actual movement</b>, or</li>
+        <li><b>IV Rank</b> is high (~<b>50+</b> unfriendly; <b>70+</b> rich) unless the expected move is clearly larger than usual, or</li>
+        <li>An <b>earnings / event sits inside the assumed hold</b> (~2 sessions) — crush risk.</li>
+      </ul>
+    </section>
+
+    <section id="side">
+      <h2>How CALL vs PUT is chosen</h2>
+      <div class="grid2">
+        <div class="card in">
+          <h3>BUY CALL</h3>
+          <p>Uptrend, or sideways but clearly <b>stronger than Nifty</b> over ~20 sessions.</p>
+        </div>
+        <div class="card out">
+          <h3>BUY PUT</h3>
+          <p>Downtrend, or sideways but clearly <b>weaker than Nifty</b>.</p>
+        </div>
+      </div>
+      <p style="margin-top:0.75rem">No tilt → no buy idea. A <b>squeeze</b> (the stock has been coiling) is a plus for buyers, but it does not flip the side by itself.</p>
+    </section>
+
+    <section id="strike">
+      <h2>Which strike, breakeven, and cover</h2>
+      <div class="grid3">
+        <div class="card"><h3>ATM</h3><p>Closest strike to last close — <b>preferred</b>.</p></div>
+        <div class="card"><h3>ITM-1</h3><p>One strike in-the-money. Allowed if cover and cost look better.</p></div>
+        <div class="card"><h3>OTM-1</h3><p>One strike out. Harder BE. Strict desk rejects it.</p></div>
+      </div>
+      <div class="formula" style="margin-top:0.85rem">
+        Call BE = Strike + Premium &nbsp;&nbsp;·&nbsp;&nbsp; Put BE = Strike − Premium<br />
+        Cover = expected move (ATR over ~2 sessions) ÷ points needed to reach BE<br />
+        Cost / lot = NSE board lot × premium
+      </div>
+      <table style="margin-top:0.75rem">
+        <thead><tr><th>Cover</th><th>Reading</th></tr></thead>
+        <tbody>
+          <tr><td>≥ 2.0×</td><td>Strong — typical range has room</td></tr>
+          <tr><td>≥ 1.5×</td><td>Healthy — the desk’s main bar</td></tr>
+          <tr><td>1.0–1.5×</td><td>Tight — easy to miss</td></tr>
+          <tr><td>&lt; 1.0×</td><td>Typical move may never reach BE</td></tr>
+        </tbody>
+      </table>
+      <div class="callout">Trade the <b>printed</b> strike and expiry. “ATM” on the card is last night’s ATM, not “whatever is ATM at 9:15”.</div>
+    </section>
+
+    <section id="rank">
+      <h2>High priority and Top 5</h2>
+      <p>Every remaining BUY CALL / PUT gets a <b>potential</b> from 0–100: <i>how realistic is a path to profit?</i> — not a promised return.</p>
+      <div class="grid2">
+        <div class="card in">
+          <h3>What lifts potential</h3>
+          <p>Ready to buy · cover ≥ 1.5× (especially ≥ 2×) · a 1-ATR day still profits · livelier ATR% · ATM · squeeze + trend/RS aligned · easy need-to-BE · low IV Rank</p>
+        </div>
+        <div class="card out">
+          <h3>What hurts potential</h3>
+          <p>Watch / spread-only · cover below 1× · 1-ATR still below BE · OTM · need-to-BE ~3%+ · IV Rank 50–70 (worse above 70) · event within 5 days (worse within 2)</p>
+        </div>
+      </div>
+      <table style="margin-top:0.8rem">
+        <thead><tr><th>Potential</th><th>Band</th><th>On the page?</th></tr></thead>
+        <tbody>
+          <tr><td>70 and above</td><td>High</td><td>Yes — this is the board</td></tr>
+          <tr><td>50–69</td><td>Medium</td><td>Hidden</td></tr>
+          <tr><td>Below 50</td><td>Low</td><td>Hidden</td></tr>
+        </tbody>
+      </table>
+      <p style="margin-top:0.7rem"><b>Top 5</b> = the first five High names. Gold is “look here first”, not “buy all five”.</p>
+    </section>
+
+    <section id="strict">
+      <h2>Strict desk — what to actually buy</h2>
+      <p>The compare board can show five names. <b>Do not force five tickets.</b></p>
+      <div class="grid2">
+        <div class="card in">
+          <h3>Strict (live rule)</h3>
+          <p>At most <b>Top 2</b> · cover <b>≥ 1.5×</b> · <b>no OTM</b> · IV Rank <b>&lt; 50</b> · <b>no event in 2 days</b>.<br />
+          If you replay history: hold ~<b>4</b> sessions; stop only on a <b>closing</b> print through the stop.</p>
+        </div>
+        <div class="card">
+          <h3>Wide (study only)</h3>
+          <p>Old looser replay: Top 5, 2-session hold, stop on the day’s low. Use it to study history — not as the live buying rule.</p>
+        </div>
+      </div>
+      <div class="callout warn">If <b>none</b> of the Top 5 pass Strict, skip the session. Judge replays by <b>average P&amp;L</b>, not win rate.</div>
+    </section>
+
+    <section id="plan">
+      <h2>Buy · sell · stop</h2>
+      <p>Research marks from last close, sized to the dated market tape on the banner. Not live quotes. Costs and slippage are not included.</p>
+      <div class="grid3">
+        <div class="card" style="border-color:rgba(61,220,151,0.4)"><h3 style="color:var(--green)">Buy</h3><p>Last-close option premium.</p></div>
+        <div class="card" style="border-color:rgba(125,211,252,0.4)"><h3 style="color:var(--blue)">Sell</h3><p>About 1.5× the risk, capped if a typical 1-ATR day cannot fund a bigger target.</p></div>
+        <div class="card" style="border-color:rgba(255,107,122,0.4)"><h3 style="color:var(--red)">Stop</h3><p>In a cautious tape, about <b>32%</b> of premium. Tighter when India is cautious vs the world.</p></div>
+      </div>
+      <table style="margin-top:0.8rem">
+        <thead><tr><th>Field</th><th>Meaning</th></tr></thead>
+        <tbody>
+          <tr><td>Lot / cost per lot</td><td>NSE board lot · lot × premium</td></tr>
+          <tr><td>Margin %</td><td>(Sell − Buy) ÷ Buy</td></tr>
+          <tr><td>R:R</td><td>Reward ÷ risk</td></tr>
+          <tr><td>Stock stop / target</td><td>Rough underlying levels (~0.8 ATR against you; target near or beyond BE)</td></tr>
+        </tbody>
+      </table>
+      <div class="callout">The banner is a <b>dated brief</b>, not a live news feed. When markets change, the brief should be refreshed so stops stay honest.</div>
+    </section>
+
+    <section id="screen">
+      <h2>What each part of the screen is for</h2>
+      <table>
+        <thead><tr><th>Area</th><th>Use it to</th></tr></thead>
+        <tbody>
+          <tr><td>Hero + as-of date</td><td>Confirm you are on the latest F&amp;O close — not a stale Thursday on a Saturday</td></tr>
+          <tr><td>Market banner</td><td>Know if stops are tight (cautious) or more generous</td></tr>
+          <tr><td>Counts</td><td>How many names were scored vs how many made High / Top 5</td></tr>
+          <tr><td>Top 5 compare</td><td>Scan the same session across columns; green = best in that row</td></tr>
+          <tr><td>Strict desk line</td><td>The 0–2 names worth a real ticket</td></tr>
+          <tr><td>High table</td><td>Every High idea — download as CSV if you want</td></tr>
+          <tr><td>This name’s plan</td><td>Tiles, expiry P&amp;L scenarios, nearby strikes</td></tr>
+          <tr><td>Why this stock</td><td>Readiness, why-text, warnings, failed checks, checklist</td></tr>
+          <tr><td>Option chain</td><td>Last-close ATM-window rows — not live</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="back">
+      <h2>Backtest — did last-close picks work?</h2>
+      <p><b>Replay past sessions</b> pretends you ran the desk on recent closes, takes High (or Strict) picks, and scores what that <b>same contract</b> did over the hold.</p>
+      <div class="grid4">
+        <div class="card"><h3>Signals</h3><p>How many past closes were replayed.</p></div>
+        <div class="card"><h3>Trades scored</h3><p>How many had a later price to judge.</p></div>
+        <div class="card"><h3>Win rate</h3><p>Share that finished green — <b>not</b> the main score.</p></div>
+        <div class="card"><h3>Avg P&amp;L</h3><p>The number that matters. A few losers can wreck a 50% win rate.</p></div>
+      </div>
+      <div class="callout">This is close-to-close research, not a live-fill backtest. A small sample is a check, not proof.</div>
+    </section>
+
+    <section id="words">
+      <h2>Word list</h2>
+      <div class="grid3">
+        <div class="card"><h3>ATR / ATR%</h3><p>Typical daily range, and that range as a % of close. Livelier names help buyers.</p></div>
+        <div class="card"><h3>HV vs IV</h3><p>How much the stock moved vs how expensive options are.</p></div>
+        <div class="card"><h3>IV Rank</h3><p>Where today’s IV sits vs its own history. Low = cheaper than usual.</p></div>
+        <div class="card"><h3>RS</h3><p>Vs Nifty. Leaders for calls, laggards for puts.</p></div>
+        <div class="card"><h3>Squeeze</h3><p>The stock has been coiling. Expansion would help a buyer.</p></div>
+        <div class="card"><h3>Cover</h3><p>Expected move ÷ need-to-BE. Above ~1.5× is healthier.</p></div>
+        <div class="card"><h3>BE</h3><p>Expiry break-even of the suggested strike.</p></div>
+        <div class="card"><h3>Score</h3><p>0–100 last-close composite (setup + liquidity + IV).</p></div>
+        <div class="card"><h3>Potential</h3><p>0–100 “can this option realistically get to profit?”</p></div>
+      </div>
+    </section>
+
+    <section id="traps">
+      <h2>Easy ways to misread the desk</h2>
+      <ul>
+        <li>Treating <b>High</b> as “must buy five names”.</li>
+        <li>Buying a <b>new ATM at 9:15</b> instead of the printed strike.</li>
+        <li>Ignoring <b>cover</b> and buying cheap OTM because the premium “feels affordable”.</li>
+        <li>Buying into <b>rich IV</b> the day before results.</li>
+        <li>Holding a weekly with <b>no move</b> and hoping time will help.</li>
+        <li>Forgetting <b>lot × premium</b> until after you are in.</li>
+        <li>Using the board as <b>live</b> prices.</li>
+      </ul>
+      <div class="callout warn">
+        Options can expire worthless. Data can be late or wrong. Nothing in this handbook is a recommendation to buy or sell any security.
+      </div>
+    </section>
+
+    <footer>
+      Option Buying Desk · last-close research · not investment advice · 16 August 2026
+      · <a href="option-buying-desk.md">Plain-text copy</a>
+    </footer>
+  </div>
+</body>
+</html>

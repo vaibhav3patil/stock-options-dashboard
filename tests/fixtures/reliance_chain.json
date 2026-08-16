@@ -1,0 +1,142 @@
+{
+  "symbol": "RELIANCE",
+  "status": "OK",
+  "message": "ok",
+  "source": "fixture",
+  "records": {
+    "expiryDates": ["28-Aug-2026", "25-Sep-2026"],
+    "underlyingValue": 1310.0,
+    "data": [
+      {
+        "strikePrice": 1290,
+        "expiryDate": "28-Aug-2026",
+        "CE": {
+          "strikePrice": 1290,
+          "expiryDate": "28-Aug-2026",
+          "openInterest": 1200,
+          "changeinOpenInterest": 40,
+          "totalTradedVolume": 300,
+          "impliedVolatility": 17.5,
+          "lastPrice": 38.0,
+          "bidprice": 37.5,
+          "askPrice": 38.4
+        },
+        "PE": {
+          "strikePrice": 1290,
+          "expiryDate": "28-Aug-2026",
+          "openInterest": 900,
+          "changeinOpenInterest": 20,
+          "totalTradedVolume": 200,
+          "impliedVolatility": 18.0,
+          "lastPrice": 12.0,
+          "bidprice": 11.7,
+          "askPrice": 12.2
+        }
+      },
+      {
+        "strikePrice": 1300,
+        "expiryDate": "28-Aug-2026",
+        "CE": {
+          "strikePrice": 1300,
+          "expiryDate": "28-Aug-2026",
+          "openInterest": 1800,
+          "changeinOpenInterest": 50,
+          "totalTradedVolume": 450,
+          "impliedVolatility": 18.2,
+          "lastPrice": 30.0,
+          "bidprice": 29.6,
+          "askPrice": 30.3
+        },
+        "PE": {
+          "strikePrice": 1300,
+          "expiryDate": "28-Aug-2026",
+          "openInterest": 1500,
+          "changeinOpenInterest": 30,
+          "totalTradedVolume": 350,
+          "impliedVolatility": 18.8,
+          "lastPrice": 16.0,
+          "bidprice": 15.7,
+          "askPrice": 16.2
+        }
+      },
+      {
+        "strikePrice": 1310,
+        "expiryDate": "28-Aug-2026",
+        "CE": {
+          "strikePrice": 1310,
+          "expiryDate": "28-Aug-2026",
+          "openInterest": 2500,
+          "changeinOpenInterest": 80,
+          "totalTradedVolume": 800,
+          "impliedVolatility": 19.0,
+          "lastPrice": 22.0,
+          "bidprice": 21.7,
+          "askPrice": 22.2
+        },
+        "PE": {
+          "strikePrice": 1310,
+          "expiryDate": "28-Aug-2026",
+          "openInterest": 2400,
+          "changeinOpenInterest": 70,
+          "totalTradedVolume": 700,
+          "impliedVolatility": 19.4,
+          "lastPrice": 21.5,
+          "bidprice": 21.2,
+          "askPrice": 21.7
+        }
+      },
+      {
+        "strikePrice": 1320,
+        "expiryDate": "28-Aug-2026",
+        "CE": {
+          "strikePrice": 1320,
+          "expiryDate": "28-Aug-2026",
+          "openInterest": 1700,
+          "changeinOpenInterest": 25,
+          "totalTradedVolume": 400,
+          "impliedVolatility": 19.8,
+          "lastPrice": 15.5,
+          "bidprice": 15.2,
+          "askPrice": 15.7
+        },
+        "PE": {
+          "strikePrice": 1320,
+          "expiryDate": "28-Aug-2026",
+          "openInterest": 1600,
+          "changeinOpenInterest": 35,
+          "totalTradedVolume": 380,
+          "impliedVolatility": 20.1,
+          "lastPrice": 28.0,
+          "bidprice": 27.6,
+          "askPrice": 28.3
+        }
+      },
+      {
+        "strikePrice": 1330,
+        "expiryDate": "28-Aug-2026",
+        "CE": {
+          "strikePrice": 1330,
+          "expiryDate": "28-Aug-2026",
+          "openInterest": 1100,
+          "changeinOpenInterest": 10,
+          "totalTradedVolume": 250,
+          "impliedVolatility": 20.5,
+          "lastPrice": 10.0,
+          "bidprice": 9.7,
+          "askPrice": 10.2
+        },
+        "PE": {
+          "strikePrice": 1330,
+          "expiryDate": "28-Aug-2026",
+          "openInterest": 1300,
+          "changeinOpenInterest": 15,
+          "totalTradedVolume": 280,
+          "impliedVolatility": 20.8,
+          "lastPrice": 35.0,
+          "bidprice": 34.5,
+          "askPrice": 35.4
+        }
+      }
+    ]
+  }
+}

@@ -1,0 +1,4 @@
+symbol,date,type
+RELIANCE,2026-08-20,EARNINGS
+# type: EARNINGS | DIVIDEND | SPLIT | BONUS | OTHER
+# Copy to events.csv to override yfinance dates.
